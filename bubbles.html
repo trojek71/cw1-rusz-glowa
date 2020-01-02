@@ -43,7 +43,6 @@
         44
       ];
       let costs = [
-        ,
         0.25,
         0.27,
         0.25,
@@ -66,7 +65,6 @@
         0.25,
         0.28,
         0.25,
-        0.24,
         0.24,
         0.22,
         0.2,
@@ -110,10 +108,27 @@
       }
       let bestSolutions = getBestResults(scores, hightScore);
       console.log("Próbki z najwieksża liczbą baniek " + bestSolutions);
-      function GetMostCostEffectiveSolution(scores, costs, hightScore) {
+      function getMostCostEffectiveSolution(scores, costs, hightScore) {
         let cost = 100;
         let index;
+        for (let i = 0; i < scores.length; i++) {
+          if (scores[i] == hightScore) {
+            if (cost > costs[i]) {
+              index = i;
+              cost = costs[i];
+            }
+          }
+        }
+        return index;
       }
+      let mostCostEffective = getMostCostEffectiveSolution(
+        scores,
+        costs,
+        hightScore
+      );
+      console.log(
+        "Płyn nr " + mostCostEffective + " jest najbardziej opłacalny"
+      );
     </script>
   </head>
   <body></body>
