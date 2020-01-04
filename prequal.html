@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>Car</title>
+    <script>
+      let taxi ={
+          make : "SieMoCorp",
+          model : "taxi",
+          year : 1955,
+          color : "zołty",
+          passangers : 4,
+          convertible : false,
+          mileage : 281341  
+      };
+      function prequal(car){
+          if (car.mileage > 100000){
+              return false;
+          } else if (car.year > 1960) {
+              return false;
+          }
+          return true;
+      }
+      let worthALook = prequal(taxi);
+      if (worthALook  ){
+          console.log("Powinieneś zainteresować się tym "+ taxi.make + " " + taxi.model);
+      } else {
+          console.log("Ten "+ taxi.make + "  " + taxi.model + " mozesz sobie podarować");
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
