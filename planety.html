@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8">
+        <title>Planety</title>
+        <style>
+        .redtext {color:red;}
+        </style>
+        <script>
+            function init(){
+            let planet = document.getElementById("greenplanet");
+            planet.innerHTML = "Alarm czerwony rozpczęcie  ostrzał z fazerów";
+            planet.setAttribute("class", "redtext");
+            }
+            window.onload=init;
+            </script>
+    </head>
+    <body>
+        <h1>Zielona planeta</h1>
+        <p id="greenplanet">Wszystko jest w  porządku</p>
+        <h1>Czerwona planeta</h1>
+        <p id="redpanet">Nie ma tu nic ciekawego</p>
+        <h1>Niebieska planeta</h1>
+        <p id="bluepanet">Wszystkie systemy sprawne</p>
+    </body>
+    
+</html>
