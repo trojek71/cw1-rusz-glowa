@@ -1,18 +1,45 @@
 let model = {
   boardSize: 7,
   numShips: 3,
-  shpsLenght: 3,
+  shipLenght: 3,
   shipSunk: 0,
   ships: [
     { locations: [31, 41, 51], hits: ["", "", ""] },
     { locations: [14, 24, 34], hits: ["", "hit", ""] },
     { locations: [00, 01, 02], hits: ["hit", "", ""] }
-  ]
+  ],
+  fire: function(guess) {
+    for (let i = 0; i < this.numShips; i++) {
+      let ship = this.ships[i];
+      let index = ship.locations.indexOf(guess);
+      if (index >= 0) {
+        ship.hits[index] = "hit";
+        view.displayHit(guess);
+        view.displayMessage("TRAFIONY");
+        if (this.isSunk(ship)) {
+          view.displayMessage("ZATOPIŁEŚ OKRĘT");
+          this.shipSunk++;
+        }
+        return true;
+      }
+    }
+    view.displayMiss(guess);
+    view.displayMessage("PUDŁO");
+    return false;
+  },
+  isSunk: function(ship) {
+    for (let i; i < this.shipLenght; i++) {
+      if (ship.hits[i] !== "hits") {
+        return false;
+      }
+      return true;
+    }
+  }
 };
 let view = {
   // ta metoda  wymaga  podania łańcucha z  komunikatem
   // i wyświetla  go w obszarze  komunikatu
-  displaymessage: function(msg) {
+  displayMessage: function(msg) {
     let messageArea = document.getElementById("messageArea");
     messageArea.innerHTML = msg;
   },
@@ -25,5 +52,4 @@ let view = {
     cell.setAttribute("class", "miss");
   }
 };
-view.displayHit("00");
-view.displaymessage("coś nie działa");
+model.fire("00");
