@@ -54,21 +54,16 @@ let view = {
 };
 
 function parseGuess(guess) {
-  let alphabet = ["A", "B", "C", "D", "E", "F", "G"];
-  if (guess === null || guess.lenght !== 2) {
-    alert("Proszę wpisać włąściwą  literę i cyfrę");
+  let alphabet = ["A", "B", "C", "D", "E", "F", "G"];;
+  if (guess === null || guess.length !== 2) {
+    alert("Ups Proszę wpisać włąściwą  literę i cyfrę");
   } else {
-    firstChar = guess.charOf(0);
+    let firstChar = guess.charAt(0);
     let row = alphabet.indexOf(firstChar);
-    let column = guess.charOf(1);
+    let column = guess.charAt(1);
     if (isNaN(row) || isNaN(column)) {
       alert("to nie współrzedne");
-    } else if (
-      row < 0 ||
-      row >= model.boardSize ||
-      column < 0 ||
-      column >= boardSize
-    ) {
+    } else if (row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize) {
       alert("Ups pole  poza planszą");
     } else {
       return row + column;
