@@ -1,3 +1,20 @@
+let view = {
+  displayMessage: function(msg) {
+    var messageArea = document.getElementById("messageArea");
+    messageArea.innerHTML = msg;
+  },
+
+  displayHit: function(location) {
+    let cell = document.getElementById(location);
+    cell.setAttribute("class", "hit");
+  },
+
+  displayMiss: function(location) {
+    let cell = document.getElementById(location);
+    cell.setAttribute("class", "miss");
+  }
+};
+
 let model = {
   boardSize: 7,
   numShips: 3,
@@ -36,39 +53,64 @@ let model = {
     }
   }
 };
-let view = {
-  // ta metoda  wymaga  podania łańcucha z  komunikatem
-  // i wyświetla  go w obszarze  komunikatu
-  displayMessage: function(msg) {
-    let messageArea = document.getElementById("messageArea");
-    messageArea.innerHTML = msg;
-  },
-  displayHit: function(location) {
-    let cell = document.getElementById(location);
-    cell.setAttribute("class", "hit");
-  },
-  displayMiss: function(location) {
-    let cell = document.getElementById(location);
-    cell.setAttribute("class", "miss");
+
+let controller = {
+  guesses: 0,
+  processGuess: function(guess) {
+    let location = parseGuess(guess);
+    if (location) {
+      this.guesses++;
+      let hit = model.fire(location);
+      if (hit && model.shipsSunk === model.numShips) {
+        view.displayMessage(
+          "Zatopiłeś wszystkie moje okręty, w " + this.guesses + " próbach."
+        );
+      }
+    }
   }
 };
 
 function parseGuess(guess) {
-  let alphabet = ["A", "B", "C", "D", "E", "F", "G"];;
+  let alphabet = ["A", "B", "C", "D", "E", "F", "G"];
+
   if (guess === null || guess.length !== 2) {
-    alert("Ups Proszę wpisać włąściwą  literę i cyfrę");
+    alert("Ups, proszę wpisać literę i cyfrę.");
   } else {
-    let firstChar = guess.charAt(0);
-    let row = alphabet.indexOf(firstChar);
+    let row = alphabet.indexOf(guess.charAt(0));
     let column = guess.charAt(1);
+
     if (isNaN(row) || isNaN(column)) {
-      alert("to nie współrzedne");
-    } else if (row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize) {
-      alert("Ups pole  poza planszą");
+      alert("Ups, to nie są współrzędne!");
+    } else if (
+      row < 0 ||
+      row >= model.boardSize ||
+      column < 0 ||
+      column >= model.boardSize
+    ) {
+      alert("Ups, pole poza planszą!");
     } else {
       return row + column;
     }
   }
   return null;
 }
-console.log("AAAAAAAA", parseGuess("A1"));
+function handleFireButton() {
+  let guessInput = document.getElementById("guessInput");
+  let guess = guessInput.value;
+  controller.processGuess(guess);
+
+  guessInput.value = "";
+}
+window.onload = init;
+
+function init() {
+  let fireButton = document.getElementById("fireButton");
+  fireButton.onclick = handleFireButton;
+}
+
+/*window.onload = init;
+console.log(parseGuess("A0"));
+console.log(parseGuess("B6"));
+console.log(parseGuess("G3"));
+console.log(parseGuess("H0")); // nieprawidłowe
+console.log(parseGuess("A7")); // nieprawidłowe*/
