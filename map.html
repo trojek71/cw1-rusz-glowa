@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>Skarb</title>
+    <script>
+      window.onload = init;
+      function init() {
+        let map = document.getElementById("map");
+        map.onmousemove = showCoords;
+      }
+      function showCoords(eventObj) {
+        let map = document.getElementById("coords");
+        let x = eventObj.clientX;
+        let y = eventObj.clientY;
+        map.innerHTML = "Współrzędne: " + x + ", " + y;
+      }
+    </script>
+  </head>
+  <body>
+    <img id="map" src="map.jpg" />
+    <p id="coords">Przesuń wskaznik myszy na mapie</p>
+  </body>
+</html>
